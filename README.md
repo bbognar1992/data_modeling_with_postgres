@@ -22,11 +22,11 @@ In this project, I am applied what I have learned on data modeling with Postgres
         
 ## Files used
 ### 1. sql_queries.py
-In this file a write down the drop, create, insert and select queries that I used for the project.
+In this file I write down the drop, create, insert and select queries that I used for the project.
 ### 2. create_tables.py
 Once I had the queries, this file is for:
     a. create the connection
     b. drop the tables if exist
     c. create all necesary the tables if not exist
 ### 3. etl.py
-Once creating the tables, we performance an ETL pipeline from log_data, song_data insert into 5 tables created in database sparkify.
+Once creating the tables, we perform an ETL pipeline from log_data, song_data insert into 5 tables created in database sparkify.

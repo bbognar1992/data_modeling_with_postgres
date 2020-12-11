@@ -17,15 +17,15 @@ CREATE TABLE IF NOT EXISTS users(user_id int8 PRIMARY KEY, first_name varchar, l
 """)
 
 song_table_create = ("""
-CREATE TABLE IF NOT EXISTS songs(song_id varchar PRIMARY KEY, title varchar, artist_id varchar, year int4, duration int4);
+CREATE TABLE IF NOT EXISTS songs(song_id varchar PRIMARY KEY, title varchar NOT NULL, artist_id varchar, year int4, duration float);
 """)
 
 artist_table_create = ("""
-CREATE TABLE IF NOT EXISTS artists(artist_id varchar PRIMARY KEY, name varchar, location varchar, latitude double precision, longitude double precision);
+CREATE TABLE IF NOT EXISTS artists(artist_id varchar PRIMARY KEY, name varchar NOT NULL, location varchar, latitude double precision, longitude double precision);
 """)
 
 time_table_create = ("""
-CREATE TABLE IF NOT EXISTS time(start_time int8 PRIMARY KEY, hour int2, day int2, week int2, month int2, year int2, weekday int2);
+CREATE TABLE IF NOT EXISTS time(start_time timestamp PRIMARY KEY, hour int2, day int2, week int2, month int2, year int2, weekday int2);
 """)
 
 # INSERT RECORDS
@@ -46,7 +46,7 @@ INSERT INTO songplays (
     """)
 
 user_table_insert = ("""
-INSERT INTO users(user_id, first_name, last_name, gender, level) values(%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING;
+INSERT INTO users(user_id, first_name, last_name, gender, level) values(%s,%s,%s,%s,%s) ON CONFLICT (user_id) DO UPDATE SET level=EXCLUDED.level;
 """)
 
 song_table_insert = ("""
@@ -71,6 +71,5 @@ WHERE s.title like %s AND a.name like %s
 
 # QUERY LISTS
 
-create_table_queries = [songplay_table_create, user_table_create, song_table_create, artist_table_create,
-                        time_table_create]
+create_table_queries = [songplay_table_create, user_table_create, song_table_create, artist_table_create, time_table_create]
 drop_table_queries = [songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
